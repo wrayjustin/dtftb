@@ -1,0 +1,52 @@
+#!/bin/bash
+
+#	dtftb - Defense Tools For The Blind
+#	Copyrighted:  Justin M. Wray (wray.justin@gmail.com)
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+case $1 in
+	start)
+		nohup /sbin/auto_def > /dev/null 2>&1 &
+		echo $! > /var/run/auto_def.pid 2>&1 &
+		echo -n "Starting..."
+		sleep 1
+		cat /var/run/auto_def.pid
+		;;
+	stop)
+		if [ -e /var/run/auto_def.pid ]; then
+			echo -n "Stopping..."
+			cat /var/run/auto_def.pid
+			sleep 1
+			kill -9 `cat /var/run/auto_def.pid` 2>&1 &
+			sleep 1
+			rm /var/run/auto_def.pid 2>&1 &
+			echo "Stopped..."
+		else
+			echo "Not Running..."
+		fi
+		;;
+	status)
+		if [ -e /var/run/auto_def.pid ]; then
+			echo -n "Running..."
+			cat /var/run/auto_def.pid
+		else
+			echo "Not Running"
+		fi
+		;;
+	*)
+		echo "Usage: $0 {start|stop|status}"
+		;;
+esac
+exit
