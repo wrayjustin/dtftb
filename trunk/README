@@ -1,0 +1,7 @@
+Defensive Tools For The Blind (DTFTB) is a collection of Windows and Linux tools that automate: post exploitation, backdoor, and rouge access discovery, for defenders.
+
+DTFTB allows a system defender to quickly and precisely locate common backdoor tendencies and system misconfigurations used by an attacker to maintain access.
+
+Additionally DTFTB provide automated access-denial tools, that prohibit the introduction of new backdoors to a system.
+
+DTFTB is primarily geared towards CTF or other competitive environments.
